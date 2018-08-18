@@ -23,6 +23,7 @@ cp -av $SSL_SERVER_XML $DIRECTORY/conf/server.xml
 # GET the 'Static App'
 STATIC_APP=https://s3.amazonaws.com/infra-assessment/static.zip
 cd $DIRECTORY/webapps
+rm -rvf static* static.zip*
 wget -O static.zip $STATIC_APP && unzip static.zip
 
 # Start the tomcat now.
