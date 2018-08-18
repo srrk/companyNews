@@ -23,19 +23,26 @@ cp -av $SSL_SERVER_XML $DIRECTORY/conf/server.xml
 # GET the 'Dynamic App'
 DYN_APP=https://s3.amazonaws.com/infra-assessment/companyNews.war
 cd $DIRECTORY/webapps
-rm -rf companyNews* companyNews.war*
-wget -O companyNews.war $DYN_APP
+rm -rvf companyNews* companyNews.war*
+echo "Downloading latest WAR File(companyNews)"
+wget --quiet -O companyNews.war $DYN_APP
 
 # Start the tomcat now.
 cd $DIRECTORY/bin
 ./startup.sh
 
+# Wait for WAR file to deploy.
+echo "Waiting (few seconds) for WAR file to deploy"
+sleep 30
+
 # Link static Asset
+echo "Linking static assets"
 cd $DIRECTORY/webapps/companyNews
+
 for view in *.jsp
 do 
-    sed -i s/"styles\/company.css"/"http:\/\/192.168.33.99\/static\/styles\/company.css"/g $view
-    sed -i s/"images\/logo.png"/"http:\/\/192.168.33.99\/static\/images\/logo.png"/g $view
+    sed -i s/"styles\/company.css"/"http:\/\/192.168.33.99:8080\/static\/styles\/company.css"/g $view
+    sed -i s/"images\/logo.png"/"http:\/\/192.168.33.99:8080\/static\/images\/logo.png"/g $view
 done
 
 
