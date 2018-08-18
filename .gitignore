@@ -1,0 +1,4 @@
+apache-tomcat-8.5.32
+*.log
+*.jks
+.vagrant
