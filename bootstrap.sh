@@ -23,6 +23,7 @@ cp -av $SSL_SERVER_XML $DIRECTORY/conf/server.xml
 # GET the 'Dynamic App'
 DYN_APP=https://s3.amazonaws.com/infra-assessment/companyNews.war
 cd $DIRECTORY/webapps
+rm -rf companyNews* companyNews.war*
 wget -O companyNews.war $DYN_APP
 
 # Start the tomcat now.
